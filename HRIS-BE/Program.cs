@@ -1,32 +1,53 @@
-var builder = WebApplication.CreateBuilder(args);
+using HRIS_BE;
+using HRIS_BE.Helpers.Interfaces;
+using HRIS_BE.Helpers.Models;
+using HRIS_BE.Helpers.Services;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
+//var builder = WebApplication.CreateBuilder(args);
+//IConfiguration configuration = new ConfigurationBuilder()
+//    .SetBasePath(Directory.GetCurrentDirectory())
+//    .AddJsonFile("appsettings.json")
+//    .Build();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext
+//// Add services to the container.
 
-var app = builder.Build();
+//builder.Services.AddControllers();
+//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+//builder.Services.AddDbContext<HRISDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//var app = builder.Build();
 
-app.UseCors(options => options
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .WithOrigins("*")
-                     );
+//// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
-app.UseHttpsRedirection();
+//app.UseCors(options => options
+//                       .AllowAnyMethod()
+//                       .AllowAnyHeader()
+//                       .WithOrigins("*")
+//                     );
 
-app.UseAuthorization();
+//app.UseHttpsRedirection();
 
-app.MapControllers();
+//app.UseAuthorization();
 
-app.Run();
+//app.MapControllers();
+
+//app.Run();
+
+static IHostBuilder CreateWebHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+   .ConfigureWebHostDefaults(webBuilder =>
+   {
+       webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+       webBuilder.UseIISIntegration();
+       webBuilder.UseStartup<Startup>();
+   });
+
+CreateWebHostBuilder(args).Build().Run();

@@ -1,3 +1,5 @@
+using HRIS_BE.Helpers.Interfaces;
+using HRIS_BE.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRIS_BE.Controllers
@@ -12,10 +14,12 @@ namespace HRIS_BE.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IRepository<DemoTable> repository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<DemoTable> repository)
         {
             _logger = logger;
+            this.repository = repository;
         }
 
         [HttpGet("WeatherForecast")]
@@ -28,6 +32,12 @@ namespace HRIS_BE.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("SampleDemoTable")]
+        public IEnumerable<DemoTable> GetSampleDemoTable()
+        {
+            return repository.GetAll();
         }
     }
 }
