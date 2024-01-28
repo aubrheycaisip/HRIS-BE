@@ -1,9 +1,12 @@
 ﻿using HRIS_BE.Helpers.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Net;
 using System.Reflection;
+using System.Text;
 
 namespace HRIS_BE
 {
@@ -23,6 +26,30 @@ namespace HRIS_BE
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddDbContext<HRISDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                //JwtBearerOptions jwtBearerOptions = Configuration.GetSection("JwtBearerOptions").Get<JwtBearerOptions>();
+                //if(jwtBearerOptions != null)
+                //{
+                //    options.Authority = jwtBearerOptions.Authority;
+                //    options.RequireHttpsMetadata = jwtBearerOptions.RequireHttpsMetadata;
+                //    options.Audience = jwtBearerOptions.Audience;
+                //}
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "HRIS_ISSUER",
+                    ValidAudience = "HRIS_AUDIENCE",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2fd8e5c594b8c13a95e25acce779e3b9e1013d7c8be555c3727a019eb121b188"))
+                };
+            });
 
         }
 
@@ -72,6 +99,7 @@ namespace HRIS_BE
             app.UseHsts();
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

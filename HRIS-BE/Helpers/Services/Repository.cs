@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 
 namespace HRIS_BE.Helpers.Services
 {
-    [ServiceDependency(serviceType: typeof(IRepository<>))]
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    [ServiceDependency(serviceType: typeof(IRepository<,>))]
+    public class Repository<TEntity, IdType> : IRepository<TEntity, IdType> where TEntity : BaseEntity where IdType : struct
     {
         private readonly HRISDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -26,7 +26,7 @@ namespace HRIS_BE.Helpers.Services
             return _dbSet.Where(condition).ToList();
         }
 
-        public TEntity? GetById(object id)
+        public TEntity? GetById(IdType id)
         {
             return _dbSet.Find(id);
         }
@@ -43,7 +43,7 @@ namespace HRIS_BE.Helpers.Services
             _context.SaveChanges();
         }
 
-        public void Delete(object id)
+        public void Delete(IdType id)
         {
             TEntity? entityToDelete = _dbSet.Find(id);
             if (entityToDelete != null)

@@ -59,3 +59,5 @@ C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\obj\
 C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\obj\Debug\net6.0\HRIS-BE.pdb
 C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\obj\Debug\net6.0\HRIS-BE.genruntimeconfig.cache
 C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\obj\Debug\net6.0\ref\HRIS-BE.dll
+C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\aubrhey.caisip\Documents\Projects\CONSOLSYS\Others\HRIS-BE\HRIS-BE\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

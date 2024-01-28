@@ -1,22 +1,24 @@
 using HRIS_BE.Helpers.Interfaces;
 using HRIS_BE.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRIS_BE.Controllers
 {
     [ApiController]
     [Route("Weather")]
+    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IRepository<DemoTable> repository;
+        private readonly IRepository<DemoTable, long> repository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<DemoTable> repository)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<DemoTable, long> repository)
         {
             _logger = logger;
             this.repository = repository;
