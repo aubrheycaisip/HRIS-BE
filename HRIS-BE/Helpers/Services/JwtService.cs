@@ -10,7 +10,7 @@ namespace HRIS_BE.Helpers.Services
     [ServiceDependency(serviceType: typeof(IJwtService))]
     public class JwtService : IJwtService
     {
-        public string GenerateJwtToken(UserLogin username)
+        public TokenModel GenerateJwtToken(UserLogin username)
         {
             var claims = new[]
             {
@@ -26,7 +26,7 @@ namespace HRIS_BE.Helpers.Services
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds
             );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new TokenModel(new JwtSecurityTokenHandler().WriteToken(token));
         }
     }
 }

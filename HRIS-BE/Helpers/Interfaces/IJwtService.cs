@@ -4,6 +4,6 @@ namespace HRIS_BE.Helpers.Interfaces
 {
     public interface IJwtService
     {
-        public string GenerateJwtToken(UserLogin username);
+        public TokenModel GenerateJwtToken(UserLogin username);
     }
 }
